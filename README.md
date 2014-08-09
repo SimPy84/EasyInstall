@@ -1,0 +1,4 @@
+EasyInstall
+===========
+
+Archlinux install script

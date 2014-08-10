@@ -44,7 +44,20 @@ echo '      d. Installation des paquets supplémentaires'
 echo '      e. Configurations finales'
 echo
 echo
-read -p 'Press Return to continue'
+read -p "Appuyez sur une touche pour continuer, ou \"q\" pour quittez..."
+
+read -n1 a
+if [[ ${a} = 'q' ]]; then
+  echo
+  echo "Fin de l'installation..."
+  sleep 1s
+  exit 0
+elif [[ ${a} = 'Q' ]]; then
+  echo
+  echo "Fin de l'installation..."
+  sleep 1s
+  exit 0
+fi
 
 clear
 echo
@@ -52,7 +65,7 @@ echo ' 1. Changement de la langue'
 echo '   -------------------------'
 echo
 echo
-sleep 2
+sleep 2s
 loadkeys be-latin1
 sed -i '/fr_FR\.UTF-8/ s/^#//' /etc/locale.gen
 locale-gen
@@ -64,7 +77,27 @@ echo ' 2. Création du système de fichiers'
 echo '   ---------------------------------'
 echo
 echo
-sleep 2
+sleep 2s
+lsblk -io KNAME,TYPE,SIZE,MODEL
+echo
+read -p "Veuillez choisir le disque à partitionner (ex. /dev/sda) ?" DISK
+echo "Table de partition de $DISK :"
+parted -s $DISK unit MB print
+read -p "Voulez-vous (re)partitioner $DISK. [O/n] " rep
+if [[ ${rep} = n ]]; then
+  echo
+  echo "Fin de l'installation..."
+  sleep 3s
+  exit 0
+fi
+parted $DISK mklabel msdos
+parted $DISK unit MB mkpart primary linux-swap 1 1024
+parted -- $DISK unit MB mkpart primary ext4 1024 -0
+parted $DISK set 2 boot on
+echo ">>> La table de partition de $DISK est la suivante :"
+parted -s $DISK unit MB print 
+
+
 mkfs.ext2 /dev/sda1
 mkfs.ext4 /dev/Giskard/root
 swapon /dev/Giskard/swap_1
@@ -87,18 +120,19 @@ echo '   -----------------------'
 echo
 echo
 sleep 2
-mv /etc/pacman.d/mirrolist /etc/pacman.d/mirrolist.old
-touch /etc/pacman.d/mirrolist
-echo "##" >> /etc/pacman.d/mirrolist
-echo "## Arch Linux repository mirrorlist" >> /etc/pacman.d/mirrolist
-echo "## Sorted by mirror score from mirror status page" >> /etc/pacman.d/mirrolist
-echo "## Generated on 2013-09-15" >> /etc/pacman.d/mirrolist
-echo "##" >> /etc/pacman.d/mirrolist
-echo " " >> /etc/pacman.d/mirrolist
-echo "## Score: 1.5, Belgium" >> /etc/pacman.d/mirrolist
-echo "#Server = http://archlinux.mirror.kangaroot.net/$repo/os/$arch" >> /etc/pacman.d/mirrolist
-echo "## Score: 3.9, Belgium" >> /etc/pacman.d/mirrolist
-echo "#Server = http://archlinux.cu.be/$repo/os/$arch" >> /etc/pacman.d/mirrolist
+cp /etc/pacman.d/mirrolist /etc/pacman.d/mirrolist.old
+rankmirrors --generate --method rank --country Belgium,Germany,France
+#touch /etc/pacman.d/mirrolist
+#echo "##" >> /etc/pacman.d/mirrolist
+#echo "## Arch Linux repository mirrorlist" >> /etc/pacman.d/mirrolist
+#echo "## Sorted by mirror score from mirror status page" >> /etc/pacman.d/mirrolist
+#echo "## Generated on 2013-09-15" >> /etc/pacman.d/mirrolist
+#echo "##" >> /etc/pacman.d/mirrolist
+#echo " " >> /etc/pacman.d/mirrolist
+#echo "## Score: 1.5, Belgium" >> /etc/pacman.d/mirrolist
+#echo "#Server = http://archlinux.mirror.kangaroot.net/$repo/os/$arch" >> /etc/pacman.d/mirrolist
+#echo "## Score: 3.9, Belgium" >> /etc/pacman.d/mirrolist
+#echo "#Server = http://archlinux.cu.be/$repo/os/$arch" >> /etc/pacman.d/mirrolist
 
 clear
 echo
@@ -228,3 +262,5 @@ echo
 echo
 read -p "Don't forget to remove the CD"
 reboot
+
+# ••¤(`×[¤ Qεяε∂ ¤]×´)¤••

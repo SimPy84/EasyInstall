@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -v
 
 # Copyright (c) Vite Aerea
 
@@ -20,9 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# Option verbose
-set v
-
 dialog --backtitle "Arch Linux Easy Install" --title " Bienvenu " \
 --yes-label "Continuer" --no-label "Sortir" --yesno "
 Bienvenu dans le script d'installation d'Arch Linux façon Vite Aerea.
@@ -40,9 +37,11 @@ fi
 dialog --backtitle "Arch Linux Easy Install" --title " Language Settings " \
 --sleep 2 --infobox "\nKeyboard setting\nLocale" 8 40
 
+clear
 loadkeys be-latin1
 sed -i '/fr_FR\.UTF-8/ s/^#//' /etc/locale.gen
 locale-gen
 export LANG=fr_FR.UTF-8
+
 
 # ••¤(`×[¤ Qεяε∂ ¤]×´)¤••

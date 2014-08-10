@@ -87,20 +87,25 @@ read -p "Voulez-vous (re)partitioner $DISK. [O/n] " rep
 if [[ ${rep} = n ]]; then
   echo
   echo "Fin de l'installation..."
-  sleep 3s
+  sleep 2s
   exit 0
 fi
+echo
+echo "Création de la table de partition..."
+echo
+sgdisk --zap-all $DISK
 parted $DISK mklabel msdos
 parted $DISK unit MB mkpart primary linux-swap 1 1024
 parted -- $DISK unit MB mkpart primary ext4 1024 -0
 parted $DISK set 2 boot on
 echo ">>> La table de partition de $DISK est la suivante :"
 parted -s $DISK unit MB print 
-
-
-mkfs.ext2 /dev/sda1
-mkfs.ext4 /dev/Giskard/root
-swapon /dev/Giskard/swap_1
+echo
+echo "Formatage des disques..."
+echo 
+mkfs.ext4 /dev/sda2
+mkswap /dev/sda1
+swapon /dev/sda1
 
 clear
 echo
@@ -108,10 +113,8 @@ echo ' 3. Montage des partitions'
 echo '   ------------------------'
 echo
 echo
-sleep 2
-mount /dev/Giskard/root /mnt
-mkdir /mnt/boot
-mount /dev/sda1 /mnt/boot
+sleep 2s
+mount /dev/sda2 /mnt
 
 clear
 echo
@@ -119,7 +122,7 @@ echo ' 4. Sélection du mirroire'
 echo '   -----------------------'
 echo
 echo
-sleep 2
+sleep 2s
 cp /etc/pacman.d/mirrolist /etc/pacman.d/mirrolist.old
 rankmirrors --generate --method rank --country Belgium,Germany,France
 #touch /etc/pacman.d/mirrolist
@@ -140,7 +143,7 @@ echo ' 5. Installation du système de base'
 echo '   ---------------------------------'
 echo
 echo
-sleep 2
+sleep 2s
 pacstrap -i /mnt base base-devel
 echo
 echo \ Generate an fstab
@@ -154,7 +157,7 @@ echo ' 6. Chroot et Configurations'
 echo '   --------------------------'
 echo
 echo
-sleep 2
+sleep 2s
 arch-chroot /mnt /bin/bash
 
 clear
@@ -162,7 +165,7 @@ echo
 echo ' 6.a Configuration de la langue et du clavier'
 echo
 echo
-sleep 2
+sleep 2s
 sed -i '/en_US\.UTF-8/ s/^#//' /etc/locale.gen
 sed -i '/fr_FR\.UTF-8/ s/^#//' /etc/locale.gen
 locale-gen
@@ -180,21 +183,21 @@ export LANG=fr_FR.UTF-8
 loadkeys be-latin1
 touch /etc/vconsole.conf
 echo "KEYMAP=be-latin1" >> /etc/vconsole.conf
-echo "FONT=Lat2-Terminus16" >> /etc/vconsole.conf
-echo "FONT_MAP=8859-15" >> /etc/vconsole.conf
+#echo "FONT=Lat2-Terminus16" >> /etc/vconsole.conf
+#echo "FONT_MAP=8859-15" >> /etc/vconsole.conf
 
 clear
 echo
 echo ' 6.b Configuration des composants et processus système'
 echo
 echo
-sleep 2
+sleep 2s
 ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 hwclock --systohc --utc
-hostnamectl set-hostname ViteAerea.test
-pacman -S ipw2200-fw
+#hostnamectl set-hostname ViteAerea.test
+#pacman -S ipw2200-fw
 systemctl enable dhcpcd.service
-sed -i 's/block filesystems/block lvm2 filesystems/g' /etc/mkinitcpio.conf
+#sed -i 's/block filesystems/block lvm2 filesystems/g' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 
 clear
@@ -202,7 +205,7 @@ echo
 echo ' 6.c Installation du bootloader'
 echo
 echo
-sleep 2
+sleep 2s
 pacman -S grub
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -212,8 +215,8 @@ echo
 echo ' 6.d Installation des paquets supplémentaires'
 echo
 echo
-sleep 2
-pacman -S vim mc gpm wget zsh git
+sleep 2s
+pacman -S vim-runtime mc gpm wget zsh git
 
 echo
 echo Yaourt
@@ -234,7 +237,7 @@ echo
 echo ' 6.e Configurations finales'
 echo
 echo
-sleep 2
+sleep 2s
 touch /etc/yaourtrc
 mkdir /var/tmp/yaourt
 echo 'EDITOR="vim"' >> /etc/yaourtrc
@@ -253,7 +256,6 @@ echo
 echo " Fin de l'installation !"
 echo
 exit
-umount /mnt/boot
 umount /mnt
 
 echo

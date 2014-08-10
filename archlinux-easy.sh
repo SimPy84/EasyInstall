@@ -27,6 +27,9 @@
 # system de base (base et base-devel) ainsi que quelques packages très
 # très utiles pour un environement en mode console complet.
 
+@echo ON
+clear
+
 echo '+----------------+'
 echo '| ArchLinux-esay |'
 echo '+----------------+'

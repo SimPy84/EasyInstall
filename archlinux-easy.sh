@@ -47,9 +47,8 @@ echo '      d. Installation des paquets supplémentaires'
 echo '      e. Configurations finales'
 echo
 echo
-read -p "Appuyez sur une touche pour continuer, ou \"q\" pour quittez..."
+read -p "Appuyez sur une touche pour continuer, ou \"q\" pour quittez..." a
 
-read -n1 a
 if [[ ${a} = 'q' ]]; then
   echo
   echo "Fin de l'installation..."

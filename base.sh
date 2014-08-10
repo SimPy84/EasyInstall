@@ -1,4 +1,4 @@
-#!/bin/sh -v
+#!/bin/sh -x
 
 # Copyright (c) Vite Aerea
 

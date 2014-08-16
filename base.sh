@@ -1,7 +1,7 @@
-#!/bin/sh -x
+#!/bin/sh
 
 # Copyright (c) Vite Aerea
-
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -35,13 +35,9 @@ then
 fi
 
 dialog --backtitle "Arch Linux Easy Install" --title " Language Settings " \
---sleep 2 --infobox "\nKeyboard setting\nLocale" 8 40
+ --sleep 2 --colors --infobox "\Z0color 0\n\Z1color 1\n\Z2color 2\n\Z3color 3\n\Z4color 4\n\Z5color 5\n\Z6color 6\n\Z7color 7" 12 40
 
-clear
-loadkeys be-latin1
-sed -i '/fr_FR\.UTF-8/ s/^#//' /etc/locale.gen
-locale-gen
-export LANG=fr_FR.UTF-8
-
+#dialog --backtitle "Arch Linux Easy Install" --title " Language Settings " \
+#--sleep 2 --infobox "\nKeyboard setting\nLocale" 8 40
 
 # ••¤(`×[¤ Qεяε∂ ¤]×´)¤••

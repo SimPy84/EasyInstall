@@ -104,6 +104,11 @@ dialog --backtitle "Arch Linux Easy Install" --title " Sélection du mirroire " 
 cp /etc/pacman.d/mirrolist /etc/pacman.d/mirrolist.old
 rankmirrors --generate --method rank --country Belgium,Germany,France
 
+# Synchronisation des dépots
+dialog --backtitle "Arch Linux Easy Install" --title " Mise à jour des dépots " \
+--sleep 2 --infobox "\n\n   Mise à jour des dépots en cours,\n     Veuillez patienter." 7 60
+pacman -Sy
+
 # Installation du système de base
 dialog --backtitle "Arch Linux Easy Install" --title " Installation du système de base " \
 --sleep 2 --infobox "\n\n   Le système de base va être installé maintenant." 7 60

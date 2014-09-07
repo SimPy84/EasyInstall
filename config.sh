@@ -27,6 +27,21 @@
 # system de base (base et base-devel) ainsi que quelques packages très
 # très utiles pour un environement en mode console complet.
 
+dialog --backtitle "Arch Linux Easy Install" --title " Bienvenu " \
+--yes-label "Continuer" --no-label "Sortir" --yesno "
+Bienvenu dans le script d'installation d'Arch Linux façon Vite Aerea.
+Ce Script propose une installation automatisée d'Arch Linux." 12 60
+if [ "$?" = "1" ]
+then
+  dialog --backtitle "Arch Linux Easy Install" --title " Au revoir " \
+  --sleep 2 --infobox "\n\nFin de l'installation..." 8 40
+  clear
+  exit 0
+fi
+
+
+
+
 clear
 echo
 echo ' 6.a Configuration de la langue et du clavier'
@@ -41,7 +56,7 @@ echo "# Enable UTF-8 with French settings." >> /etc/locale.conf
 echo 'LANG="fr_FR.UTF-8"' >> /etc/locale.conf
 echo "" >> /etc/locale.conf
 echo "# Setting fallback locales" >> /etc/locale.conf
-echo 'LANGUAGE="fr_FR:en_US:en"' >> /etc/locale.conf
+echo 'LANGUAGE="fr_FR:fr:en_US:en"' >> /etc/locale.conf
 echo "" >> /etc/locale.conf
 echo "# Keep the default sort order (e.g. files starting with a '.'" >> /etc/locale.conf
 echo "# should appear at the start of a directory listing.)" >> /etc/locale.conf
@@ -50,8 +65,8 @@ export LANG=fr_FR.UTF-8
 loadkeys be-latin1
 touch /etc/vconsole.conf
 echo "KEYMAP=be-latin1" >> /etc/vconsole.conf
-#echo "FONT=Lat2-Terminus16" >> /etc/vconsole.conf
-#echo "FONT_MAP=8859-15" >> /etc/vconsole.conf
+echo "FONT=lat9w-16" >> /etc/vconsole.conf
+echo "FONT_UNIMAP=lat9w" >> /etc/vconsole.conf
 
 clear
 echo

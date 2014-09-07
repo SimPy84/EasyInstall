@@ -22,8 +22,8 @@
 
 dialog --backtitle "Arch Linux Easy Install" --title " Bienvenu " \
 --yes-label "Continuer" --no-label "Sortir" --yesno "
-Bienvenu dans le script d'installation d'Arch Linux façon Vite Aerea.
-Ce Script propose une installation automatisée d'Arch Linux." 12 60
+Suite de l'installation d'Arch Linux et configuration du nouveau système." 12 60
+
 if [ "$?" = "1" ]
 then
   dialog --backtitle "Arch Linux Easy Install" --title " Au revoir " \
@@ -32,17 +32,18 @@ then
   exit 0
 fi
 
+# Localisation linguistique
+dialog --backtitle "Arch Linux Easy Install" --title " Paramètres linguistiques " \
+--sleep 2 --colors --infobox "\n Localisation linguistique :\n \Z1- Langue du clavier\n - Langue système\n - configuration console" 8 40
 
+dialog --backtitle "Arch Linux Easy Install" --title " Paramètres linguistiques " \
+--sleep 1 --colors --infobox "\n Localisation linguistique :\n \Z4-> Langue du clavier\n \Z1- Langue système\n - configuration console" 8 40
+loadkeys be-latin1
 
-
-clear
-echo
-echo ' 6.a Configuration de la langue et du clavier'
-echo
-echo
-sleep 2s
-sed -i '/en_US\.UTF-8/ s/^#//' /etc/locale.gen
+dialog --backtitle "Arch Linux Easy Install" --title " Paramètres linguistiques " \
+--sleep 1 --colors --infobox "\n Localisation linguistique :\n \Z2+ Langue du clavier\n \Z4-> Langue système\n \Z1- configuration console" 8 40
 sed -i '/fr_FR\.UTF-8/ s/^#//' /etc/locale.gen
+sed -i '/en_US\.UTF-8/ s/^#//' /etc/locale.gen
 locale-gen
 touch /etc/locale.conf
 echo "# Enable UTF-8 with French settings." >> /etc/locale.conf
@@ -55,36 +56,55 @@ echo "# Keep the default sort order (e.g. files starting with a '.'" >> /etc/loc
 echo "# should appear at the start of a directory listing.)" >> /etc/locale.conf
 echo 'LC_COLLATE="C"' >> /etc/locale.conf
 export LANG=fr_FR.UTF-8
-loadkeys be-latin1
+
+dialog --backtitle "Arch Linux Easy Install" --title " Paramètres linguistiques " \
+--sleep 1 --colors --infobox "\n Localisation linguistique :\n \Z2+ Langue du clavier\n + Langue système\n \Z4-> configuration console" 8 40
 touch /etc/vconsole.conf
 echo "KEYMAP=be-latin1" >> /etc/vconsole.conf
 echo "FONT=lat9w-16" >> /etc/vconsole.conf
 echo "FONT_UNIMAP=lat9w" >> /etc/vconsole.conf
 
-clear
-echo
-echo ' 6.b Configuration des composants et processus système'
-echo
-echo
-sleep 2s
+dialog --backtitle "Arch Linux Easy Install" --title " Paramètres linguistiques " \
+--sleep 2 --colors --infobox "\n Localisation linguistique :\n \Z2+ Langue du clavier\n + Langue système\n + configuration console" 8 40
+
+# Configuration des composants et processus système
+dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " \
+--sleep 2 --colors --infobox "\n \Z1- Fuseau horaire et horloge\n - Connectivité\n - Kernel Linux" 8 40
+
+dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " \
+--sleep 1 --colors --infobox "\n \Z4-> Fuseau horaire et horloge\n \Z1- Connectivité\n - Kernel Linux" 8 40
 ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 hwclock --systohc --utc
+
+dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " \
+--sleep 1 --colors --infobox "\n \Z2+ Fuseau horaire et horloge\n \Z4-> Connectivité\n \Z1- Kernel Linux" 8 40
 #hostnamectl set-hostname ViteAerea.test
-#pacman -S ipw2200-fw
 systemctl enable dhcpcd.service
-#sed -i 's/block filesystems/block lvm2 filesystems/g' /etc/mkinitcpio.conf
+
+dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " \
+--sleep 1 --colors --infobox "\n \Z2+ Fuseau horaire et horloge\n + Connectivité\n \Z4-> Kernel Linux" 8 40
 mkinitcpio -p linux
 
-clear
-echo
-echo ' 6.c Installation du bootloader'
-echo
-echo
-sleep 2s
+dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " \
+--sleep 2 --colors --infobox "\n \Z2+ Fuseau horaire et horloge\n + Connectivité\n + Kernel Linux" 8 40
+
+# Installation du bootloader
+dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
+--sleep 2 -- colors --infobox "\n\n \Z1- Installation du bootloader\n - Configuration du bootloader" 7 40
+
+dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
+--sleep 1 -- colors --infobox "\n\n \Z4-> Installation du bootloader\n \Z1- Configuration du bootloader" 7 40
 pacman -S grub
+
+dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
+--sleep 1 -- colors --infobox "\n\n \Z2+ Installation du bootloader\n \Z4-> Configuration du bootloader" 7 40
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
+dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
+--sleep 2 -- colors --infobox "\n\n \Z2+ Installation du bootloader\n + Configuration du bootloader" 7 40
+
+# Installation de paquets supplémentaires indispensables
 clear
 echo
 echo ' 6.d Installation des paquets supplémentaires'

@@ -90,49 +90,49 @@ dialog --backtitle "Arch Linux Easy Install" --title " Configuration système " 
 
 # Installation du bootloader
 dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
---sleep 2 -- colors --infobox "\n\n \Z1- Installation du bootloader\n - Configuration du bootloader" 7 40
+--sleep 2 --colors --infobox "\n \Z1- Installation du bootloader\n - Configuration du bootloader" 7 40
 
 dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
---sleep 1 -- colors --infobox "\n\n \Z4-> Installation du bootloader\n \Z1- Configuration du bootloader" 7 40
+--sleep 1 --colors --infobox "\n \Z4-> Installation du bootloader\n \Z1- Configuration du bootloader" 7 40
 pacman -S grub
 
 dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
---sleep 1 -- colors --infobox "\n\n \Z2+ Installation du bootloader\n \Z4-> Configuration du bootloader" 7 40
+--sleep 1 --colors --infobox "\n \Z2+ Installation du bootloader\n \Z4-> Configuration du bootloader" 7 40
 grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
---sleep 2 -- colors --infobox "\n\n \Z2+ Installation du bootloader\n + Configuration du bootloader" 7 40
+--sleep 2 --colors --infobox "\n\n \Z2+ Installation du bootloader\n + Configuration du bootloader" 7 40
 
 # Installation de paquets supplémentaires indispensables
 dialog --backtitle "Arch Linux Easy Install" --title " CLI indispensables " \
---sleep 2 -- colors --infobox "\n\n \Z1- Installation des indispensables" 7 40
+--sleep 2 --colors --infobox "\n\n \Z1- Installation des indispensables" 7 40
 
 dialog --backtitle "Arch Linux Easy Install" --title " CLI indispensables " \
---sleep 1 -- colors --infobox "\n\n \Z4-> Installation des indispensables" 7 40
+--sleep 1 --colors --infobox "\n\n \Z4-> Installation des indispensables" 7 40
 pacman -S vim mc gpm wget zsh git
 
 dialog --backtitle "Arch Linux Easy Install" --title " CLI indispensables " \
---sleep 2 -- colors --infobox "\n\n \Z2+ Installation des indispensables" 7 40
+--sleep 2 --colors --infobox "\n\n \Z2+ Installation des indispensables" 7 40
 
 # Installation de Yaourt
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 2 -- colors --infobox "\n \Z1- Download des paquets\n - Installations des dépendances\n - Installaton de Yaourt" 8 40
+--sleep 2 --colors --infobox "\n \Z1- Download des paquets\n - Installations des dépendances\n - Installaton de Yaourt" 8 40
 
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 1 -- colors --infobox "\n \Z4-> Download des paquets\n \Z1- Installations des dépendances\n - Installaton de Yaourt" 8 40
+--sleep 1 --colors --infobox "\n \Z4-> Download des paquets\n \Z1- Installations des dépendances\n - Installaton de Yaourt" 8 40
 curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
 curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
 
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 1 -- colors --infobox "\n \Z2+ Download des paquets\n \Z4-> Installations des dépendances\n \Z1- Installaton de Yaourt" 8 40
+--sleep 1 --colors --infobox "\n \Z2+ Download des paquets\n \Z4-> Installations des dépendances\n \Z1- Installaton de Yaourt" 8 40
 tar zxvf package-query.tar.gz
 cd package-query
 makepkg -csi
 cd ..
 
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 1 -- colors --infobox "\n \Z2+ Download des paquets\n + Installations des dépendances\n \Z4-> Installaton de Yaourt" 8 40
+--sleep 1 --colors --infobox "\n \Z2+ Download des paquets\n + Installations des dépendances\n \Z4-> Installaton de Yaourt" 8 40
 tar zxvf yaourt.tar.gz
 cd yaourt
 makepkg -csi
@@ -144,15 +144,15 @@ echo 'TMPDIR="/var/tmp/yaourt"' >> /etc/yaourtrc
 echo 'EDITFILES=0' >> /etc/yaourtrc
 
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 2 -- colors --infobox "\n\n \Z2+ Download des paquets\n + Installations des dépendances\n + Installaton de Yaourt" 8 40
+--sleep 2 --colors --infobox "\n\n \Z2+ Download des paquets\n + Installations des dépendances\n + Installaton de Yaourt" 8 40
 
 # Mot de pass root
 dialog --backtitle "Arch Linux Easy Install" --title " Mot de passe root " \
---sleep 2 -- colors --infobox "\nLe \Z3mot de passe \Z7pour l'utilisateur \Z3root \Z7vous sera demandé !" 7 40
+--sleep 2 --colors --infobox "\nLe \Z3mot de passe \Z0pour l'utilisateur \Z3root \Z0vous sera demandé !" 7 40
 passwd root
 
 dialog --backtitle "Arch Linux Easy Install" --title " Fin de l'installation " \
---sleep 2 -- colors --infobox "\nMerci d'avoir utilisé EasyInstall ! " 7 40
+--sleep 2 --colors --infobox "\nMerci d'avoir utilisé EasyInstall ! " 7 40
 umount /mnt
 
 echo

@@ -148,7 +148,7 @@ dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
 
 # Mot de pass root
 dialog --backtitle "Arch Linux Easy Install" --title " Mot de passe root " \
---sleep 2 --colors --infobox "\nLe \Z3mot de passe \Z0pour l'utilisateur \Z3root \Z0vous sera demandé !" 7 40
+--sleep 2 --colors --infobox "\nLe \Z1mot de passe \Z0pour l'utilisateur \Z1root \Z0vous sera demandé !" 7 40
 passwd root
 
 dialog --backtitle "Arch Linux Easy Install" --title " Fin de l'installation " \

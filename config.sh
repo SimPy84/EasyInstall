@@ -155,7 +155,6 @@ dialog --backtitle "Arch Linux Easy Install" --title " Fin de l'installation " \
 --sleep 2 --colors --infobox "\nMerci d'avoir utilisé EasyInstall ! " 7 40
 umount /mnt
 
-echo
 clear
 echo
 echo
@@ -163,4 +162,3 @@ read -p "Don't forget to remove the CD"
 reboot
 
 # ••¤(`×[¤ Qεяε∂ ¤]×´)¤••
-

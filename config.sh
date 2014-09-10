@@ -102,7 +102,7 @@ grub-install --target=i386-pc --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 dialog --backtitle "Arch Linux Easy Install" --title " Bootloader " \
---sleep 2 --colors --infobox "\n\n \Z2+ Installation du bootloader\n + Configuration du bootloader" 7 40
+--sleep 2 --colors --infobox "\n \Z2+ Installation du bootloader\n + Configuration du bootloader" 7 40
 
 # Installation de paquets supplémentaires indispensables
 dialog --backtitle "Arch Linux Easy Install" --title " CLI indispensables " \
@@ -144,7 +144,7 @@ echo 'TMPDIR="/var/tmp/yaourt"' >> /etc/yaourtrc
 echo 'EDITFILES=0' >> /etc/yaourtrc
 
 dialog --backtitle "Arch Linux Easy Install" --title " Yaourt " \
---sleep 2 --colors --infobox "\n\n \Z2+ Download des paquets\n + Installations des dépendances\n + Installaton de Yaourt" 8 40
+--sleep 2 --colors --infobox "\n \Z2+ Download des paquets\n + Installations des dépendances\n + Installaton de Yaourt" 8 40
 
 # Mot de pass root
 dialog --backtitle "Arch Linux Easy Install" --title " Mot de passe root " \
